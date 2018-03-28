@@ -75,6 +75,8 @@ Cyborg Tactics Application
 <plugin name="cordova.plugins.diagnostic" version="*" />
 	<plugin name="cordova-plugin-globalization" source="npm" />
 	<plugin name="cordova-plugin-dialogs" spec="^1.3.4"/>
+
+	 <gap:plugin name="cordova-plugin-request-location-accuracy" source="npm" />
 	
 
 
