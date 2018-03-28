@@ -98,6 +98,12 @@ function StartWebView()
 	else
 		{
 		setc("myid",Math.random()*10000000);
+		myid=cc("myid");
+		}
+	if (myid=="" or myid==0)
+		{
+		setc("myid",Math.random()*10000000);
+		myid=cc("myid");
 		}
 	var url='https://mixshop.ge/cybapp/index.php?myid='+myid;
 	console.log(url);
