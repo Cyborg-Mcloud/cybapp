@@ -66,19 +66,5 @@ Cyborg Tactics Application
 	</feature>
 	
 
-<feature name="http://api.phonegap.com/1.0/geolocation"/>
-	<feature name="http://api.phonegap.com/1.0/device" />
-<gap:plugin name="cordova-plugin-geolocation" source="npm"/>
-	<gap:plugin name="cordova-plugin-inappbrowser"  source="npm" />
-	<gap:plugin name="cordova-plugin-whitelist" source="npm" />
-
-	<gap:plugin name="cordova-plugin-inappbrowser"  source="npm" />
-
-    <gap:plugin name="cordova-plugin-request-location-accuracy" source="npm" />
-    <gap:plugin name="de.appplant.cordova.plugin.local-notification" source="npm" version="0.8.4"/>
-	<plugin name="cordova.plugins.diagnostic" version="*" />
-	<plugin name="cordova-plugin-globalization" source="npm" />
-	<plugin name="cordova-plugin-dialogs" spec="^1.3.4"/>
-
 
 </widget>
