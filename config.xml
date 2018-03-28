@@ -2,12 +2,12 @@
 
 <widget xmlns     = "http://www.w3.org/ns/widgets"
 		xmlns:gap = "http://phonegap.com/ns/1.0"
-        id        = "com.designge.cybapp"
+        id        = "com.designge.airsoftminimap"
 	    versionCode="1" 
         version   = "0.0.1"
-		package="com.designge.cybapp"
+		package="com.designge.airsoftminimap"
 		xmlns:android="http://schemas.android.com/apk/res/android">
-    <name>CybApp</name>
+    <name>MiniMap</name>
 
 
 	<icon src="logo.png" />
@@ -62,7 +62,7 @@ Cyborg Tactics Application
     </plugins>
 
 	<feature name="App">
-	  <param name="android-package" value="com.designge.cybapp"/>
+	  <param name="android-package" value="com.designge.airsoftminimap"/>
 	</feature>
 	
 <feature name="http://api.phonegap.com/1.0/geolocation"/>
