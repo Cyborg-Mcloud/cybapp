@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Security-Policy" content="default-src *; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'">
+  	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>CybApp Airsoft</title>
+
+	<script type="text/javascript" charset="utf-8" src="cordova.js"></script>
+
+  </head>
+  <style>
+	body {color:white; margin:0px; padding:0px;}
+	a {text-decoration:none; color:white;}
+  </style>
+  <body style='padding:0; border:0; margin:0;'>
+  <center>
+  <br><br><br><br><br><br><br>
+	Waiting for GPS location...
+  </center>
+<script>
+
+
+var MyLat;
+var MyLong;
+var MyAlt;
+var MyHead;
+var MySpeed;
+var MyAcc;
+
+function onDeviceReady() 
+	{
+
+    document.removeEventListener('deviceready', onDeviceReady, false);
+
+	req_loc_acc();
+	req_loc_auth();
+
+	StartWebView();
+
+    }
+
+
+function onSuccess(position) 
+	{
+	console.log("on GPS success");
+		
+	MyLat=position.coords.latitude ;
+	MyLong=position.coords.longitude ;
+	MyAlt=position.coords.altitude ;
+	MyHead=position.coords.heading ;
+	MySpeed=position.coords.speed ;
+	MyAcc=position.coords.accuracy;
+	console.log(MyLat+ " - "+MyLong);
+	StartWebView();
+    }
+
+document.addEventListener("deviceready", onDeviceReady, false);
+var myid=0;
+var ref="";
+
+
+function setc(mname, mval)
+	{
+	console.log("set cookie:"+mname+"="+mval+";");
+	document.cookie=""+mname+"="+mval+";";
+	}
+
+
+function cc(mname)
+	{
+	var mycookies = document.cookie;
+	var mc= new Array();
+	mc=mycookies.split(";");
+	var found=false;
+	for (i=0;i<mc.length ;i++ )
+		{
+		mk=mc[i].split("=");
+		mk[0]=mk[0].replace(" ","");
+		if (mk[0]==mname)
+			{
+			found=true;
+			return mk[1];
+			}
+		}
+	if (found==false)
+		{
+		return "";
+		}
+	}
+
+
+function StartWebView()
+	{
+	if (document.cookie!="")
+		{
+		myid=cc("myid");
+		}
+	else
+		{
+		setc("myid",Math.random()*100000000);
+		}
+	var url='https://mixshop.ge/cybapp/index.php?myid='+myid;
+	console.log(url);
+	ref = cordova.InAppBrowser.open(url, '_self', 'location=no, clearcache=yes');
+	}
+
+
+function onRequestSuccess( success)
+	{
+    console.log("Successfully requested accuracy "+success.message);
+    }
+
+function onRequestFailure(error)
+	{
+    console.log("Accuracy request failed: error code="+error.code+"; error message="+error.message);
+	}
+
+function req_loc_acc()
+	{
+	var accuracy = 3;
+	var accuracyName  = "High Accuracy";
+	console.log("requesting acc");
+	cordova.plugins.locationAccuracy.request(onRequestSuccess, onRequestFailure, cordova.plugins.locationAccuracy.REQUEST_PRIORITY_HIGH_ACCURACY);
+	}
+
+function req_loc_auth()
+	{
+	console.log("requesting auth");
+	cordova.plugins.diagnostic.isLocationAuthorized(function (authorized) {
+	if(!authorized)
+		{
+
+		cordova.plugins.diagnostic.requestLocationAuthorization(function (status) {console.log("Requested location authorization: authorization was " + status);}, onError, cordova.plugins.diagnostic.locationAuthorizationMode.ALWAYS);
+		}
+	else
+		{
+		onError("App is already authorized to use location");
+		}
+		}, onError);
+	}
+
+
+function checkState()
+	{
+    console.log("Checking location state...");
+
+    function evaluateMode(mode)
+		{
+        document.getElementById("curlocmode").innerHTML=mode; 
+	    }
+    cordova.plugins.diagnostic.getLocationMode(evaluateMode, onError);
+	}
+
+
+function onError(error) 
+	{
+    var msg = "An error occurred: " + error;
+    console.error(error);
+ //   alert(msg);
+    //checkState();
+	}
+
+function open_loc_settings()
+	{
+	cordova.plugins.diagnostic.switchToLocationSettings();
+	}
+
+
+</script>
+
+</body>
+
+
+
+</html>
